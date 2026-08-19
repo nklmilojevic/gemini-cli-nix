@@ -1,8 +1,8 @@
 {
   "name": "gemini-cli-nix-wrapper",
-  "version": "0.55.1",
+  "version": "0.56.0",
   "private": true,
   "dependencies": {
-    "@google/gemini-cli": "0.55.1"
+    "@google/gemini-cli": "0.56.0"
   }
 }
