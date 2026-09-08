@@ -5,14 +5,14 @@
 }:
 
 let
-  version = "0.58.0";
+  version = "0.59.0";
 in buildNpmPackage {
   pname = "gemini-cli";
   inherit version;
 
   src = ./wrapper;
 
-  npmDepsHash = "sha256-95PqzZHYKVNJ03RGFqKWg/x1TwvD7W52GyIl/DtCLAM=";
+  npmDepsHash = "sha256-0CMRDEzJ8Ga3QPpvY9n/KoszT7O1PhEGnhaMHCY57uQ=";
 
   nodejs = nodejs_22;
 
