@@ -29,7 +29,7 @@ For auto-merge to work:
 
 ### Required Secrets
 
-- `CACHIX_AUTH_TOKEN`: Auth token for the `gemini-cli-nix-cache` Cachix cache (optional but recommended for binary caching)
+- `CACHIX_AUTH_TOKEN`: Auth token for the `nkl-nix-config` Cachix cache (optional but recommended for binary caching)
 
 ### Optional Secrets
 

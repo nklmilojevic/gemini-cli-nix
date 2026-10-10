@@ -62,14 +62,11 @@ nix-env -if github:nklmilojevic/gemini-cli-nix
 
 ### Optional: Enable Binary Cache for Faster Installation
 
-To download pre-built binaries instead of compiling:
+CI builds `main` for Linux and macOS and pushes the results to the
+`nkl-nix-config` Cachix cache. To download them instead of building:
 
 ```bash
-# Install cachix if you haven't already
-nix-env -iA cachix -f https://cachix.org/api/v1/install
-
-# Add the gemini-cli-nix-cache cache
-cachix use gemini-cli-nix-cache
+cachix use nkl-nix-config
 ```
 
 Or add to your Nix configuration:
@@ -77,11 +74,16 @@ Or add to your Nix configuration:
 ```nix
 {
   nix.settings = {
-    substituters = [ "https://gemini-cli-nix-cache.cachix.org" ];
-    trusted-public-keys = [ "gemini-cli-nix-cache.cachix.org-1:REPLACE_WITH_ACTUAL_KEY" ];
+    extra-substituters = [ "https://nkl-nix-config.cachix.org" ];
+    extra-trusted-public-keys = [ "nkl-nix-config.cachix.org-1:BFC4/yovGI+0E8ZZE0K3H6Mu2uBaqSU/kTnSvFQs5uE=" ];
   };
 }
 ```
+
+The cache only matches builds against this flake's own pinned nixpkgs. Use
+`packages.${system}.default` and do **not** set
+`inputs.gemini-cli-nix.inputs.nixpkgs.follows`: following your nixpkgs changes
+the store path, and you build it locally instead.
 
 ## Using with Nix Flakes
 
@@ -219,7 +221,7 @@ For manual updates:
 ### Push to Cachix manually
 ```bash
 nix build .#gemini-cli
-cachix push gemini-cli-nix-cache ./result
+cachix push nkl-nix-config ./result
 ```
 
 ## Troubleshooting

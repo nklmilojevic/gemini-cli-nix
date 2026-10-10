@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [ main ]
   workflow_dispatch:
+  # The update bot merges with GITHUB_TOKEN, which never triggers a push
+  # build, so rebuild main hourly to keep the cache warm. A run with nothing
+  # new only substitutes from the cache.
+  schedule:
+    - cron: '30 * * * *'
 
 jobs:
   build:
@@ -27,8 +32,9 @@ jobs:
 
     - uses: cachix/cachix-action@v15
       with:
-        name: gemini-cli-nix-cache
+        name: nkl-nix-config
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+        skipPush: ${{ github.event_name == 'pull_request' }}
 
     - name: Build gemini-cli
       run: |
